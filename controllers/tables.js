@@ -26,12 +26,60 @@ exports.createTable = function (req, res) {
 				  	res.status(500).json(err);
 			    } else {
 				    // success
-					res.status(201).json({"tableID":result['insertId']});
+					res.status(201).json(result);
 				}
 		  	});
 		}
   	});  	
 }
+
+exports.updateTable = function (req, res) {
+	var query = "UPDATE tables SET name='" + req.body.name + "' WHERE id="+req.params.tableid;
+	db.getPool().query(query, 
+	function (err, result) {
+		if (err) { 
+			res.status(500).json(err);
+	    } else {
+		    res.status(200).json(result);
+		}
+	});
+}
+
+exports.getTable = function (req, res) {
+	var query = "SELECT * FROM tables WHERE id=" + req.params.tableid;
+	console.log(query);
+	db.getPool().query(query, 
+	function (err, result) {
+		if (err) { 
+			console.log(err);
+			res.status(500).json(err);
+	    } else {
+		    console.log(result);
+		    res.status(200).json(result);
+		}
+	});
+};
+
+exports.deleteTable = function (req, res) {
+	var query = "DROP TABLE `UD-"+req.params.tableid+"`";
+	db.getPool().query(query, 
+	function (err, result) {
+		if (err) { 
+			res.status(500).json(err);
+	    } else {
+		    var query = "DELETE FROM tables WHERE id=" + req.params.tableid;
+			db.getPool().query(query, 
+			function (err, result) {
+				if (err) { 
+					res.status(500).json(err);
+			    } else {
+				    res.status(200).json(result);
+				}
+			});
+		}
+	});
+};
+
 
 function getCreationQuery(createdID, body) {
   	var query = "CREATE TABLE `UD-"+createdID+"` (";
@@ -42,16 +90,4 @@ function getCreationQuery(createdID, body) {
 	}
 	query += ")";
 	return query;
-}
-
-exports.updateTable = function (req, res) {
-	var query = "UPDATE tables SET name='" + req.body.name + "' WHERE id="+req.params.tableid;
-	db.getPool().query(query, 
-	function (err, result) {
-		if (err) { 
-			res.status(500).json(err);
-	    } else {
-		    res.status(204).json({});
-		}
-	});
 }

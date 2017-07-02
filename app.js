@@ -20,7 +20,6 @@ db.connect(db.MODE_TEST, function(err) {
 		process.exit(1);
 	} else {
 		console.log('connected to MySQL, listening on port ' + port);
-		db.drop(['tables']);
 		app.listen(port);
 	}
 });
@@ -52,13 +51,9 @@ app.post('/tables', tables.createTable);
 
 app.put('/tables/:tableid', tables.updateTable);
 
-app.get('/tables/:tableid', function(req, res){
-	// Get a table's info
-});
+app.get('/tables/:tableid', tables.getTable);
 
-app.delete('/tables/:tableid', function(req, res){
-	// Delete a table
-});
+app.delete('/tables/:tableid', tables.deleteTable);
 
 // Rows
 
