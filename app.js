@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var db = require('./services/db');
 var tables = require('./controllers/tables');
+var userTable = require('./controllers/userTable');
 
 // Globals
 var app = express();    
@@ -57,19 +58,11 @@ app.delete('/tables/:tableid', tables.deleteTable);
 
 // Rows
 
-app.post('/tables/:tableid', function(req, res){
-	// Add a new row
-});
+app.post('/tables/:tableid', userTable.createRow);
 
-app.put('/tables/:tableid/:rowid', function(req, res){
-	// Update a row
-});
+app.put('/tables/:tableid/:rowid', userTable.updateRow);
 
-app.get('/tables/:tableid/:rowid', function(req, res){
-	// Get range of rows starting at the index, default range is 1
-});
+app.get('/tables/:tableid/:rowid', userTable.getRow);
 
-app.delete('/tables/:tableid/:rowid', function(req, res){
-	// Delete a row
-});
+app.delete('/tables/:tableid/:rowid', userTable.deleteRow);
 

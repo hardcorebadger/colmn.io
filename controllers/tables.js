@@ -3,7 +3,7 @@ var db = require('../services/db');
 exports.createTable = function (req, res) {
 	
 	// query to create an entry in tables
-	var query = "INSERT INTO tables(userid,name) VALUES (1,'"+req.body.name+"')";
+	var query = "INSERT INTO tables VALUES (NULL, 1,'"+req.body.name+"')";
 	db.getPool().query(query, 
 	function (err, result) {
 		// if that fails just quit
