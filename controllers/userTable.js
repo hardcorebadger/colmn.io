@@ -70,7 +70,15 @@ exports.getRow = function (req, res) {
 };
 
 exports.deleteRow = function (req, res) {
-	
+	var query = "DELETE FROM "+tableName(req)+" WHERE id=" + req.params.rowid;
+	db.getPool().query(query, 
+	function (err, result) {
+		if (err) { 
+			res.status(500).json(err);
+	    } else {
+		    res.status(200).json(result);
+		}
+	});
 };
 
 function tableName(req) {
