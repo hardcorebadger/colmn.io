@@ -58,7 +58,15 @@ exports.updateRow = function (req, res) {
 };
 
 exports.getRow = function (req, res) {
-	
+	var query = "SELECT * FROM "+tableName(req)+" WHERE id=" + req.params.rowid;
+	db.getPool().query(query, 
+	function (err, result) {
+		if (err) { 
+			res.status(500).json(err);
+	    } else {
+		    res.status(200).json(result);
+		}
+	});
 };
 
 exports.deleteRow = function (req, res) {

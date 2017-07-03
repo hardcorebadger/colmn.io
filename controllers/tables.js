@@ -47,14 +47,11 @@ exports.updateTable = function (req, res) {
 
 exports.getTable = function (req, res) {
 	var query = "SELECT * FROM tables WHERE id=" + req.params.tableid;
-	console.log(query);
 	db.getPool().query(query, 
 	function (err, result) {
 		if (err) { 
-			console.log(err);
 			res.status(500).json(err);
 	    } else {
-		    console.log(result);
 		    res.status(200).json(result);
 		}
 	});
