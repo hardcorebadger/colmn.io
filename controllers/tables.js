@@ -82,12 +82,11 @@ exports.deleteTable = function (req, res) {
 
 
 function getCreationQuery(createdID, body) {
-  	var query = "CREATE TABLE `UD-"+createdID+"` (";
+  	var query = "CREATE TABLE `UD-"+createdID+"` (id MEDIUMINT NOT NULL AUTO_INCREMENT,";
 	for (var i = 0; i < body.fieldNames.length; i++) {
 		query += "`" + body.fieldNames[i] + "` " + body.fieldTypes[i]
-	    if (i+1 < body.fieldNames.length)
-	    	query += ",";
+	    query += ",";
 	}
-	query += ")";
+	query += "PRIMARY KEY (id))";
 	return query;
 }
