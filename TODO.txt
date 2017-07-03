@@ -1,0 +1,3 @@
+- identify and handle different data types for put and post on UD tables
+- figure out response message protocol
+- figure out getting row chunks
